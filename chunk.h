@@ -20,7 +20,8 @@ void initChunk(Chunk *chunk) {
   chunk->capacity = 0;
   chunk->code = NULL;
 }
-
+// if the current array already has capacity for the new byte. If it doesn’t,
+// then we first need to grow the array to make room.
 void writeChunk(Chunk *chunk, uint8_t byte) {
   if (chunk->capacity < chunk->count + 1) {
     int oldCapacity = chunk->capacity;
@@ -28,5 +29,8 @@ void writeChunk(Chunk *chunk, uint8_t byte) {
     chunk->code =
         GROW_ARRAY(uint8_t, chunk->code, oldCapacity, chunk->capacity);
   }
+
+  chunk->code[chunk->count] = byte;
+  chunk->count++;
 }
 #endif

@@ -4,6 +4,7 @@
 #include "common.h"
 #include "memory.h"
 #include <cstddef>
+#include <cstdint>
 #include <stdint.h>
 
 typedef enum {
@@ -20,6 +21,11 @@ void initChunk(Chunk *chunk) {
   chunk->count = 0;
   chunk->capacity = 0;
   chunk->code = NULL;
+}
+
+void freeChunk(Chunk *chunk) {
+  FREE_ARRAY(uint8_t, chunk->code, chunk->capacity);
+  initChunk(chunk);
 }
 // if the current array already has capacity for the new byte. If it doesn’t,
 // then we first need to grow the array to make room.

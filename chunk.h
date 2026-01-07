@@ -9,6 +9,7 @@
 
 typedef enum {
   OP_RETURN,
+  OP_CONSTANT,
 } Opcode;
 
 typedef struct {
